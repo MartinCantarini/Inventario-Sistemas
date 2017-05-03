@@ -1,0 +1,5 @@
+db/
+log/
+test/
+tmp/
+config/database.yml

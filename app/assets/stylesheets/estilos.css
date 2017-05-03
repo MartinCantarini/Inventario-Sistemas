@@ -1,0 +1,80 @@
+th{
+    background-color: #333;
+    color: #FFF;
+}
+#ayuda_input{
+    font-size: 10px;
+    margin-top:8px;
+    color:blue;
+    font-style: italic;
+}
+#logo{
+    margin-top:30px;
+    margin-bottom: 25px; 
+}
+#color-peligro{
+	color:red;
+}
+#titulo-menu{
+    color:#9ACA3C;
+    margin:10px 10px 10px 10px;
+}
+#subtitulo-menu{
+    color:#9ACA3C;
+    margin:10px 10px 10px 10px;   
+}
+#campo-obligatorio{
+    color:red;
+    font-weight: bold;
+}
+label-azul{
+	color:#006DEA;
+	font-weight: bold;
+}
+version{
+  color:#9aca3c;
+  font-size: 10px;  
+  text-align: right;
+}
+#spam-rojo{
+    color:red;
+    font-weight: bold;
+}
+#spam-blanco{
+    color:#FFF;
+    font-size: 12px;
+}
+.error{color:#D9534F;}
+
+#color-panel{
+    background-color: #0B610B;
+    color:#FFF;
+}
+#sidebar {
+    background-color: #333;
+    padding: 10px;
+}
+
+#sidebar a:hover, a:focus {
+    color: #FFF;
+    text-decoration: none;
+}
+
+#sidebar.nav > li > a,
+#sidebar.nav > li > a:link {
+    background-color: #333;
+    color: #FFF;
+}
+
+#sidebar.nav > li > a:hover,
+#sidebar.nav > li > a:focus {
+    background-color: #9ACA3C;
+    color:  #333;
+}
+
+#sidebar.nav-pills > li.active > a,
+#sidebar.nav-pills > li.active > a:hover,
+#sidebar.nav-pills > li.active > a:focus {
+    color: #FFF;
+    background-color: #006DEA;
+}

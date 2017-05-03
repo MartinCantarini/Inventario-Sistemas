@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  estado: MyString
+  original: false
+  fecha_entrada: 2017-03-01
+  fecha_estado: 2017-03-01
+  color: MyString
+  brand: one
+  model: one
+
+two:
+  estado: MyString
+  original: false
+  fecha_entrada: 2017-03-01
+  fecha_estado: 2017-03-01
+  color: MyString
+  brand: two
+  model: two

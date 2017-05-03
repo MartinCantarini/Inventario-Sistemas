@@ -1,0 +1,98 @@
+<h2>Modelos de Cartuchos</h2>
+<br>
+<div class="panel panel-primary" >
+  <div class="panel-heading" id="color-panel"><h4>Búsqueda por MODELO de Cartucho</h4></div>
+  <div class="panel-body">
+  <div class="row">
+  <div class="col-md-4">
+<%= form_tag(models_path, :method => "get", id: "search-form") do %>
+	<label-azul>Modelo:</label-azul><%= select_tag :search,
+    		options_from_collection_for_select(Model.all, :nombre, :nombre,params[:search]),:include_blank => true %>
+	<br><br>
+	<label-azul>Fecha Desde:</label-azul> <%= date_field_tag :fecha_desde, params[:fecha_desde], placeholder: "dd/mm/aaaa", class:"form-control" %>
+	<label-azul>Fecha Hasta:</label-azul> <%= date_field_tag :fecha_hasta, params[:fecha_hasta], placeholder: "dd/mm/aaaa", class:"form-control" %><br>
+	<%= submit_tag "Buscar" , class:"btn btn-primary btn-lg"%>&nbsp;&nbsp;&nbsp;<%=link_to 'Listar Todos' ,models_path, class:"btn btn-default btn-sm"%><br><br>
+<% end %>
+</div>
+<div class="col-md-8">
+<center>
+<img src="/images/cartridge.jpg" class="img-circle" height="300" width="300" />
+</center>
+</div>
+<div class="col-md-12">
+<table class="table">
+		<tr>
+			<th>Modelo</th>
+			<th>Total</th>
+			<th>Libres</th>
+			<th>Usando</th>
+			<th>Recargando</th>
+			<th>Nuevos</th>
+			<th>Originales/Alternativos</th>
+			<th>Cantidad de Impresoras</th>
+			<th>
+			<%=link_to new_model_path do%>
+				<img src="/images/icons/add.png"/>
+			<% end %>
+			</th>
+		</tr>
+		<%if @modelos.present?%>
+			<%if !@fecha_desde.present? and !@fecha_hasta.present?%>
+				<%@modelos.each do |m|%>
+					<tr>
+					<td>
+					<%=link_to m.nombre, model_path(m.id)%>
+					</td>
+					<td><%=Cartridge.cantidad_total_id(m.id)%></td>
+					<td>
+					<%if Cartridge.cantidad_libres(m.id) > 3%>
+						<%=Cartridge.cantidad_libres(m.id)%>
+					<%else%>
+						<spam id="spam-rojo"><%=Cartridge.cantidad_libres(m.id)%></spam>
+					<%end%>	
+					</td>
+					<td><%=Cartridge.cantidad_usando(m.id)%></td>
+					<td><%=Cartridge.cantidad_recargando(m.id)%></td>
+					<td><%=Cartridge.cantidad_nuevos(m.id)%></td>
+					<td><%=Cartridge.cantidad_originales(m.id)%> / <%=Cartridge.cantidad_alternativos(m.id)%></td>
+					<td><%=Cartridge.cantidad_impresoras_usan_cartucho(m.id)%></td>
+					<td>
+					<%= link_to edit_model_path(m.id) do %>
+						<img src="/images/icons/edit.png"/>
+					<%end%>
+					</td>
+					</tr>
+				
+				<%end%>
+			<%else%>
+				<%@modelos.each do |m|%>
+				<tr>
+				<td>
+				<%=m.nombre%>
+				</td>
+				<td><%=Cartridge.cantidad_total_fecha(m.id,@fecha_desde,@fecha_hasta)%></td>
+				<td><%=Cartridge.cantidad_libres_fecha(m.id,@fecha_desde,@fecha_hasta)%></td>
+				<td><%=Cartridge.cantidad_usando_fecha(m.id,@fecha_desde,@fecha_hasta)%></td>
+				<td><%=Cartridge.cantidad_recargando_fecha(m.id,@fecha_desde,@fecha_hasta)%></td>
+				<td><%=Cartridge.cantidad_nuevos_fecha(m.id,@fecha_desde,@fecha_hasta)%></td>
+				<td><%=Cartridge.cantidad_originales_fecha(m.id,@fecha_desde,@fecha_hasta)%> / <%=Cartridge.cantidad_alternativos_fecha(m.id,@fecha_desde,@fecha_hasta)%></td>
+				<td><%=Cartridge.cantidad_impresoras_usan_cartucho(m.id)%></td>
+				<td>
+				<%= link_to edit_model_path(m.id) do %>
+					<img src="/images/icons/edit.png"/>
+				<%end%>
+				</td>
+				</tr>
+				<%end%>			
+			<%end%>
+		<%end%>
+</table>
+<%if !@modelos.present?%>
+	<div class="alert alert-danger">
+		 <strong>Ops!</strong> No se encontró ningun resultado
+	</div>
+</div>				
+<%end%>
+</div>
+</div>
+</div>

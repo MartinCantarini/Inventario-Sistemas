@@ -1,0 +1,69 @@
+
+<%= form_for @impresora do |p| %>
+<%#if p.error_messages.present?%>
+<p><%#= p.error_messages %></p>
+  <p>
+ <%#end%> 
+    <spam id="campo-obligatorio">* </spam><%= p.label 'Marca' %><br>
+    <%= p.collection_select(:brand_id, Brand.all, :id, :nombre,{:prompt => 'Seleccionar'}) %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= p.label :modelo %><br>
+    <%= p.text_field :modelo ,id:"tags"%>
+  </p>
+  <p>
+    <%= p.label 'Numero de Inventario' %><br>
+    <%= p.text_field :numero_inventario %>
+  </p>
+  <p>
+    <%= p.label 'Oficina' %><br>
+    <%= p.collection_select(:office_id, Office.all, :id,:departamento_con_direccion,{:prompt => 'Seleccionar'})%>
+  </p>
+  <p>
+    <%= p.label 'Red disponible' %><%=p.check_box :red_disponible %>
+  </p>
+  <p>
+    <%= p.label :detalles %><br>
+    <%= p.text_area :detalles , width:'200px'%>
+  </p>
+  <p>
+    <%= p.collection_check_boxes(:function_ids, Function.all, :id, :funcion) %>
+  </p>
+  <p>
+    <%= p.submit 'Guardar Impresora'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+  $( function() {
+    var availableTags = [
+      "LaserJet Pro M201dw",
+      "LaserJet 1320A",
+      "LaserJet 3015",
+      "LaserJet 2035",
+      "LaserJet pro MFPM 127 fn",
+      "LaserJet P1102w",
+      "LaserJet 1020",
+      "LaserJet 2015D",
+      "LaserJet 1018",
+      "LaserJet 4015N",
+      "LaserJet 2014N",
+      "LaserJet 1022N",
+      "LaserJet 1300N",
+      "OfficeJet 4500",
+      "OfficeJet 7500A",
+      "OfficeJet Pro k8600",
+      "Deskjet 5660",
+      "CLP415NW",
+      "ML-1665",
+      "ML-2851ND",
+      "ML-3310ND"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+</script>
+<script type="text/javascript">
+  <%= render "printer_validate.js" %>
+</script>
+

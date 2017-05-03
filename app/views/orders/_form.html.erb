@@ -1,0 +1,25 @@
+<%= form_for @orden do |o| %>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= o.label 'Fecha de Pedido' %><br>
+    <%= o.date_field :fecha%>
+  </p>
+  <p>
+    <%= o.label 'Momorando' %><br>
+    <%= o.file_field :file%>
+    <spam id="ayuda_input">Solo acepta imágenes JPG!</spam>
+  </p>
+  <p>
+    <%= o.label 'Finalizado' %>
+    <%= o.check_box :finalizado %>
+  </p>
+  <p>
+    <%= o.label 'Oficina' %><br>
+    <%= o.collection_select(:office_id, Office.all, :id, :departamento_con_direccion) %>
+  </p>
+  <p>
+    <%= o.submit 'Guardar Pedido'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+  <%=render 'order_validate.js'%>
+</script>

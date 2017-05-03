@@ -1,0 +1,20 @@
+<%= form_for @oficina do |c| %>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Dirección' %><br>
+    <%= c.collection_select(:direction_id, Direction.all, :id, :nombre,{:prompt => 'Seleccionar'}) %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Departamento' %><br>
+    <%= c.collection_select(:department_id, Department.all, :id, :nombre,{:prompt => 'Seleccionar'}) %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Persona a Cargo' %><br>
+    <%= c.text_field :nombre_encargado %>
+  </p>
+  <p>
+    <%= c.submit 'Guardar Oficina'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+  <%=render 'office_validate.js'%>
+</script>

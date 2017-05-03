@@ -1,0 +1,47 @@
+<h2>Impresoras</h2>
+<!--<p>Find me in app/views/printers/index.html.erb</p>-->
+<div class="row">	
+	<div class="col-md-3">
+		<%= form_tag(printers_path, :method => "get", id: "search-form") do %>
+		    <p>
+		     <label-azul>Identificador de Impresora:</label-azul> <%= text_field_tag :codigo_impresora, params[:codigo_impresora], class:"form-control", placeholder:"imp3"%><br>
+		     <%= submit_tag "Buscar" , class:"btn btn-primary btn-lg"%>
+		    </p> 
+    	<% end %>
+	</div>
+	<div class="col-md-12">
+		<table class="table">
+			<tr>
+				<th>Código</th>
+				<th>Marca</th>
+				<th>Modelo</th>
+				<th>Oficina</th>
+				<th>
+				<%=link_to new_printer_path do%>
+					<img src="/images/icons/add.png"/>
+				<% end %>
+				</th>
+			</tr>
+			<%@impresoras.each do |i|%>
+				<tr>
+				<td>
+				<%=link_to printer_path(i.id) do%>
+					<%=i.codigo%>
+				<% end %>	
+				</td>
+				<td><%=Brand.getMarca(i.brand_id)%></td>
+				<td><%=i.modelo%></td>
+				<td><%=i.getOficina%></td>
+				<td>
+				<%= link_to edit_printer_path(i.id) do %>
+					<img src="/images/icons/edit.png"/>
+				<%end%><br>
+				<%= link_to destroy_printer_path(i.id), class: "link_eliminar" do %>
+					<img src="/images/icons/destroy.png"/>
+				<%end%>
+				</td>
+				</tr>
+			<%end%>
+		</table>
+	</div>
+</div>

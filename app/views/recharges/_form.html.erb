@@ -1,0 +1,33 @@
+<%= form_for @recarga do |r| %>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= r.label 'ID cartucho' %><br>
+    <%= r.collection_select(:cartridge_id, Cartridge.all, :id, :id) %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= r.label 'Lugar de Recarga' %><br>
+    <%= r.select(:lugar_recarga, [['PC QUILMES', 'PC QUILMES']],{:prompt => 'Seleccionar'}) %>
+  </p>
+  </p>
+  <p>
+    <%= r.label 'Calle Lugar de Recarga' %><br>
+    <%= r.text_field :calle %>
+  </p>
+  <p>
+    <%= r.label 'Teléfono Lugar de Recarga' %><br>
+    <%= r.text_field :telefono%>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= r.label 'Fecha de Recarga' %><br>
+    <%= r.date_field :fecha_recarga_inicio %>
+  </p>
+  <p>
+    <%= r.label 'Fecha de Recarga Lista' %><br>
+    <%= r.date_field :fecha_recarga_fin %>
+  </p>
+  <p>
+    <%= r.submit 'Guardar Recarga'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+  <%=render 'recharge_validate.js'%>
+</script>

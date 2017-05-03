@@ -1,0 +1,30 @@
+<h3>Items asociados a esta compra</h3>
+		<table class="table">
+			<tr>
+				<th>Modelo</th>
+				<th>Cantidad pedidas</th>
+				<th>Cantidad servidas</th>
+				<th>
+				</th>	
+			</tr>
+			<%@items.all.each do |item|%>
+			<tr>
+				<td><%=item.model_id%></td>
+				<td><%=item.cantidad_pedidas%></td>
+				<td>
+					<%=link_to decrease_item_path(item.id) , remote: true do%>
+						<span class="glyphicon glyphicon-minus-sign" aria-hidden="true" style="color:#9aca3c;"></span> 
+					<%end%>
+					&nbsp;&nbsp;<%=item.cantidad_servidas%>&nbsp;&nbsp; 
+					<%=link_to increase_item_path(item.id) , remote: true do%>
+						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="color:#9aca3c;"></span>
+					<%end%>
+				</td>
+				<td>
+				<%=link_to destroy_item_path(item.id),remote: true do%>
+					<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span> 
+				<%end%></td>
+			</tr>
+			<%end%>
+		
+		</table>

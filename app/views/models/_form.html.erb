@@ -1,0 +1,12 @@
+<%= form_for @modelo do |m| %>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= m.label :nombre %><br>
+    <%= m.text_field :nombre %>
+  </p>
+  <p>
+    <%= m.submit 'Guardar Modelo'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+	<%=render 'model_validate.js'%>
+</script>

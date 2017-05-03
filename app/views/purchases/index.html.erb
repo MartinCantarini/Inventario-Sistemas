@@ -1,0 +1,36 @@
+<h2>Listado de Compras</h2>
+<table class="table">
+    <tr>
+		<th>ID</th>
+		<th>Fecha</th>
+		<th>Lugar</th>
+		<th>Cantidad de Items</th>
+		<th>
+		<%=link_to new_purchase_path do%>
+			<img src="/images/icons/add.png"/>
+		<% end %>
+		</th>
+	</tr>
+	<%@compras.each do |c|%>
+		<tr>
+		<td>
+		<%=link_to purchase_path(c.id) do%>
+			<%=c.id%>
+		<% end %>	
+		</td>
+		<td><%=c.fecha%></td>
+		<td><%=c.lugar%></td>
+		<td><%=c.cantidad_items%></td>
+		<td>
+		<%= link_to edit_purchase_path(c.id) do %>
+			<img src="/images/icons/edit.png"/>
+		<%end%>
+		&nbsp;&nbsp;|&nbsp;&nbsp;
+			<%= link_to destroy_purchase_path(c.id), class: "link_eliminar" do %>
+				<img src="/images/icons/destroy.png"/>
+			<%end%>
+			</td>
+			</tr>
+		<%end%>
+</table>
+	

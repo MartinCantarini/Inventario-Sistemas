@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Sistema de Inventario" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <!-- Latest compiled and minified CSS -->
+    </head>
+
+    <body>
+    
+      <div class="container">
+            <div class="row">
+            <div class="col-md-12">
+              <%=render 'layouts/notificaciones'%>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-3">
+              <div id="logo">      
+                <img src="/images/cic.png" width="270" />
+              </div>
+              <%=render 'layouts/panel_control'%>
+            </div>
+           
+            <div class="col-md-9">
+                <%= yield %>
+            </div>
+            </div>
+      </div>
+    </body>
+    <script>
+       $('.link_eliminar').on('click', function () {
+          return confirm('Está seguro que desea eliminar este componente?');
+      });
+    </script>
+</html>

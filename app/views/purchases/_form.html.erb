@@ -1,0 +1,25 @@
+<%= form_for @compra do |c|%>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label :lugar %><br>
+    <%= c.select(:lugar, [['PC QUILMES', 'PC QUILMES']],{:prompt => 'Seleccionar'}) %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label :fecha %><br>
+    <%= c.date_field :fecha%>
+  </p>
+  <p>
+    <%= c.label 'Total' %><br>
+    <%= c.text_field :total , width:'200px'%>
+  </p>
+  <p>
+    <%= c.label 'Adjunto Factura' %><br>
+    <%= c.file_field :factura%>
+    <spam id="ayuda_input">Solo acepta imágenes JPG!</spam>
+  </p>
+  <p>
+    <%= c.submit 'Guardar Compra'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+  <%=render 'purchase_validate.js'%>
+</script>

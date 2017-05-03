@@ -1,0 +1,17 @@
+<h3><%=Department.find(@oficina.department_id).nombre %> (<%=Direction.find(@oficina.direction_id).nombre%>)</h3>
+<hr />
+<p><label-azul>Jefe o Persona a Cargo:</label-azul> <%=@oficina.nombre_encargado%></p>
+<p><label-azul>Utilizando las siguientes impresoras:</label-azul></p>
+<p>
+	<%if @impresoras.present?%>
+		<ul>
+		<%@impresoras.all.each do |imp|%>
+			<li><%=link_to imp.codigo, printer_path(imp.id)%> - <%=imp.modelo%> (<%=Brand.find(imp.brand_id).nombre%>)</li> 
+		<%end%>
+		</ul>
+	<%else%>
+		<div class="alert alert-warning">
+  			Por el momento este departamento no utiliza impresoras.
+		</div>
+	<%end%>
+</p>

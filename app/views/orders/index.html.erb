@@ -1,0 +1,53 @@
+<h2>Listado de Ordenes</h2>
+<%= form_tag(orders_path, :method => "get", id: "search-form") do %>
+	    <p>
+	     <label-azul>Departamento: </label-azul>
+	     <%= select_tag :q,
+    		options_from_collection_for_select(Office.all, :id, :departamento_con_direccion,params[:q]),:include_blank => true %><br />
+	     <%= submit_tag "Buscar" , class:"btn btn-primary"%>
+	    </p> 
+    <% end %>
+<%if params[:q].present?%>
+<p>
+	Buscando en: <%=@oficina%>
+</p>
+<%end%>
+<table class="table">
+    <tr>
+		<th>ID</th>
+		<th>Fecha</th>
+		<th>Finalizado</th>
+		<th>Oficina</th>
+		<th>
+		<%=link_to new_order_path do%>
+			<img src="/images/icons/add.png"/>
+		<% end %>
+		</th>
+	</tr>
+	<%@ordenes.each do |o|%>
+		<tr>
+		<td>
+		<%= link_to o.id, order_path(o.id)%>	
+		</td>
+		<td><%=o.fecha%></td>
+		<td><%=o.finalizado%></td>
+		<td><%=Office.getNombreOficina(o.office_id)%></td>
+		<td>
+		<%= link_to edit_order_path(o.id) do %>
+			<img src="/images/icons/edit.png"/>
+		<%end%>
+		&nbsp;&nbsp;|&nbsp;&nbsp;
+			<%= link_to destroy_order_path(o.id), class: "link_eliminar" do %>
+				<img src="/images/icons/destroy.png"/>
+			<%end%>
+			</td>
+			</tr>
+		<%end%>
+</table>
+<%if !@ordenes.present?%>
+<p>
+	<div class="alert alert-danger">
+		<strong>Ops!</strong> No se encontró ningun resultado
+	</div>	
+</p>
+<%end%>

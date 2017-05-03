@@ -1,0 +1,22 @@
+<h2>Funciones de Impresoras</h2>
+<!--<p>Find me in app/views/printers/index.html.erb</p>-->
+	<table class="table">
+		<tr>
+			<th>Funcion</th>
+			<th>Cantidad</th>
+			<th>
+			<%=link_to new_function_path do%>
+				<img src="/images/icons/add.png"/>
+			<% end %>
+			</th>
+		</tr>
+		<%@funciones.each do |f|%>
+			<tr>
+			<td>
+			<%=f.funcion%>	
+			</td>
+			<td><%=@impresoras.cantidad(f.funcion)%></td>
+			<td><%='-'%></td>
+			</tr>
+		<%end%>
+	</table>

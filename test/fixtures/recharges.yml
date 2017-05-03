@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  references: 
+  detalles: MyString
+  lugar_recarga: MyString
+  calle: MyString
+  teléfono: MyString
+  fecha_recarga_inicio: 2017-03-02
+  fecha_recarga_fin: 2017-03-02
+
+two:
+  references: 
+  detalles: MyString
+  lugar_recarga: MyString
+  calle: MyString
+  teléfono: MyString
+  fecha_recarga_inicio: 2017-03-02
+  fecha_recarga_fin: 2017-03-02

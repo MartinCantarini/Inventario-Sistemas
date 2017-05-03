@@ -1,0 +1,64 @@
+<div class="row">
+<div class="col-md-12">
+<h3>Cartucho: <%=@cartucho.codigo%></h3>
+<%= link_to edit_cartridge_path(@cartucho.id) do %>
+	<img src="/images/icons/edit.png"/>
+<%end%>
+<%= link_to destroy_cartridge_path(@cartucho.id), class: "link_eliminar" do %>
+	<img src="/images/icons/destroy.png"/>
+<%end%>
+<hr />
+</div>
+<div class="col-md-6">
+<p><label-azul>Marca:</label-azul> <%=Brand.getMarca(@cartucho.brand_id)%></p>
+<p><label-azul>Modelo:</label-azul> <%=@modelo_cartucho%></p>
+<p><label-azul>Color:</label-azul> <%=@cartucho.color%></p>
+<p><label-azul>Fechas de Entrada:</label-azul> <%=@cartucho.fecha_entrada%></p>
+<p><label-azul>Estado:</label-azul> <%=@cartucho.estado%></p>
+<p><label-azul>Fecha de Estado:</label-azul><%=@cartucho.fecha_estado%></p>
+<p><label-azul>Se obtuvo en la Compra: </label-azul><%=link_to @cartucho.purchase_id, purchase_path(@cartucho.purchase_id)%></p>
+</div>
+<div class="col-md-4">
+<div class="panel panel-default">
+      <div class="panel-heading"><strong>Impresora</strong></div>
+      <div class="panel-body">
+      <%if @impresora_del_cartucho.present?%>
+      	<%= link_to @impresora_del_cartucho.codigo, printer_path(@impresora_del_cartucho.id) %>
+	  <%else%>
+	  	<div class="alert alert-warning">
+            Por el momento este cartucho no está siendo utilizado.
+        </div>
+	  <%end%>
+	  </div>
+</div>
+<div class="panel panel-primary">
+      <div class="panel-heading"><strong>Código Qr</strong></div>
+      <div class="panel-body"><%= image_tag "cartuchos/car#{@cartucho.id}.png" %><%=link_to( "Descargar","/images/cartuchos/car#{@cartucho.id}.png", download: 'qr_car') %>
+	  </div>
+</div>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-12">
+<h3>Recargas</h3>
+
+<p><label-azul>Cantidad de Recargas:</label-azul> <%=Recharge.getCantRecargas(@cartucho.id)%></p>
+<table class="table table-hover">
+<tr>
+	<th>Lugar de Recarga</th>
+	<th>Fecha de Regarga Incio</th>
+	<th>Fecha de Regarga Fin</th>
+	<th><%=link_to new_recharge_path(@cartucho.id) do%>
+	<img src="/images/icons/add.png"/>
+<% end %></th>
+</tr>
+<%@recargas_cartucho.each do |r|%>
+<tr>
+	<td><%=r.lugar_recarga%></td>
+	<td><%=r.fecha_recarga_inicio%></td>
+	<td><%=r.fecha_recarga_fin%></td>
+	<td></td>
+</tr>
+<%end%>
+</table>
+</div>
+</div>

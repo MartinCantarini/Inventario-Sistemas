@@ -1,0 +1,15 @@
+<h3>Modelo de Cartucho o Toner: <%=@modelo.nombre%></h3>
+<p>Utilizado por los siguientes <%=@departamentos_que_usan_modelos_de_toner.size%> departamentos:</p>
+<p>
+<%if @departamentos_que_usan_modelos_de_toner.present?%>
+	<%@departamentos_que_usan_modelos_de_toner.each do |d|%>
+		<ul>
+			<li><%=d%></li>
+		</ul>
+	<%end%>
+<%else%>
+	<div class="alert alert-warning">
+  		Por el momento ningún departamento utiliza este modelo de cartucho/toner.
+	</div>
+<%end%>
+</p>

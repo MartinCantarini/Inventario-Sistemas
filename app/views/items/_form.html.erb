@@ -1,0 +1,6 @@
+<%= form_for @item, remote: true do |i| %>
+  <%= i.number_field :cantidad_pedidas %>
+  <%= i.collection_select(:purchase_id, Purchase.all, :id, :id, :selected=>@compra.id) %>
+  <%= i.collection_select(:model_id, Model.all, :id, :nombre) %>
+  <%= i.submit 'Agregar item'%>
+<% end %>

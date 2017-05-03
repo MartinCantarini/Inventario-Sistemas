@@ -1,0 +1,94 @@
+<h2>Cartuchos</h2>
+
+<br>
+<div class="panel panel-primary">
+  <div class="panel-heading" id="color-panel"><h4>Búsqueda por ID de Cartucho<h4></div>
+  <div class="panel-body">
+  <div class="row">
+  <div class="col-md-4">
+  	<%= form_tag(cartridges_path, :method => "get", id: "search-form") do %>
+    <p>
+     <label-azul>Código de Cartucho/Toner:</label-azul> <%= text_field_tag :codigo_cartucho, params[:codigo_cartucho], class:"form-control",placeholder:"car3"%><br>
+     <%= submit_tag "Buscar" , class:"btn btn-primary btn-lg"%>
+    </p> 
+    <% end %>
+   </div>
+<div class="col-md-8">
+<center>
+<img src="/images/cartridgeb.jpg" class="img-circle" height="300" width="300" />
+</center>
+</div>
+<div class="col-md-12">
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>Marca</th>
+			<th>Modelo</th>
+			<th>Fecha de Entrada</th>
+			<th>Estado</th>
+			<th>Fecha de Estado</th>
+			<th>Oficina</th>
+			<th>Cant. Recargas</th>
+			<th>
+			<%=link_to new_cartridge_path do%>
+				<img src="/images/icons/add.png"/>
+			<% end %>
+			</th>
+		</tr>
+		<%if @cartuchos.present?%>
+			<%@cartuchos.each do |c|%>
+				<tr>
+				<td><%=link_to cartridge_path(c.id) do%><%=c.id%><%end%></td>
+				<td><%=c.brand.nombre%></td>
+				<td><%=c.model.nombre%></td>
+				<td><%=c.fecha_entrada%></td>
+				<td><%=c.estado%></td>
+				<td><%=c.fecha_estado%></td>
+				<td><%=c.getOficina%></td>
+				<td><%=Recharge.getCantRecargas(c.id)%></td>
+				<td>
+				<%= link_to edit_cartridge_path(c.id) do %>
+					<img src="/images/icons/edit.png"/>
+				<%end%><br>
+				<%= link_to destroy_cartridge_path(c.id), class: "link_eliminar" do %>
+					<img src="/images/icons/destroy.png"/>
+				<%end%>
+				</td>
+				</tr>
+			<%end%>
+		<%end%>
+	</table>
+	<%if !@cartuchos.present?%>
+		<div class="alert alert-danger">
+			 <strong>Ops!</strong> No se encontró ningun resultado
+		</div>			
+	<%end%>
+	</div>
+</div>
+  </div>
+</div>
+
+
+
+<!--BUSQUEDA POR FECHAS-->
+<div class="panel panel-info">
+  <div class="panel-heading" id="color-panel"><h4>Búsqueda por Fechas</h4></div>
+  <div class="panel-body">
+ 	<%= form_tag(cartridges_path, :method => "get", id: "search-form") do %>
+		<p>
+		<label-azul>Fecha Desde:</label-azul> <%= date_field_tag :fecha_desde, params[:fecha_desde]%>
+		<label-azul>Fecha Hasta:</label-azul> <%= date_field_tag :fecha_hasta, params[:fecha_hasta]%>
+		<%= submit_tag "Buscar" %><br>
+		<%end%><br>
+		<%if !params[:fecha_desde].present? and !params[:fecha_hasta].present? %>
+			<p><label-azul>Cantidad de Cartuchos Comprados:</label-azul><%=@cantidad_comprados%></p>
+			<p><label-azul>Cantidad de Cartuchos Libres:</label-azul><%=@cantidad_libres_total%></p>
+			<p><label-azul>Cantidad de Cartuchos Recargando:</label-azul><%=@cantidad_recargando_total%></p>
+		<%else%>
+			<p><label-azul>Cantidad de Cartuchos Comprados:</label-azul><%= @cantidad_comprados%></p>
+			<p><label-azul>Cantidad de Cartuchos Libres:</label-azul><%=@cantidad_libres%></p>
+			<p><label-azul>Cantidad de Cartuchos Recargando:</label-azul><%=@cantidad_recargando%></p>
+	<%end%>
+  </div>
+</div>
+

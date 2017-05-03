@@ -1,0 +1,47 @@
+<%= form_for @cartucho do |c| %>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Marca' %><br>
+    <%= c.collection_select(:brand_id, Brand.all, :id, :nombre,{:prompt => 'Seleccionar'}) %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Modelo' %><br>
+    <%= c.collection_select(:model_id, Model.all, :id, :nombre,{:prompt => 'Seleccionar'}) %>
+  </p>
+  <p>
+    <%= c.label 'Se obtuvo en la Compra' %><br>
+    <%= c.collection_select(:purchase_id, Purchase.all, :id, :compra_con_fecha,{:prompt => 'Seleccionar'}) %>
+  </p>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label :original %>
+    <%= c.check_box :original %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Fecha de Entrada' %><br>
+    <%= c.date_field :fecha_entrada %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label :estado %><br>
+    <%= c.select(:estado, [['Nuevo', 'nuevo'], ['En uso', 'usando'], ['Libre', 'libre'], ['Recargando', 'recargando'], ['Baja', 'baja']],{:prompt => 'Seleccionar'}) %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Fecha de Estado' %><br>
+    <%= c.date_field :fecha_estado %>
+  </p>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Color' %><br>
+    <%#= c.text_field :color %>
+    <%= c.select(:color, [['Blanco y Negro', 'Blanco y Negro'], ['Color', 'Color']],{:prompt => 'Seleccionar'}) %>
+  </p>
+
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'ID de Impresora' %>
+      <%= c.collection_select(:printer_id, Printer.all, :id, :impresora_codigo_marcar_modelo) %>
+  </p>
+  <p>
+    <%= c.submit 'Guardar Cartucho'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+  <%= render "cartridge_validate.js" %>
+</script>

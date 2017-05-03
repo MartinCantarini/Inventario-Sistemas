@@ -1,0 +1,14 @@
+
+	<h2>Direcciones CIC</h2>
+	<table class="table">
+		<tr>
+		<th>Nombre</th>
+		<th><%=link_to new_direction_path do%><img src="/images/icons/add.png"/><%end%></th>
+		
+		<%@direcciones.each do |d|%>
+		</tr>
+			<td><%=d.nombre%></td>
+			<td><%=link_to 'editar',edit_direction_path(d.id)%></td>
+		</tr>
+		<%end%>
+	</table>

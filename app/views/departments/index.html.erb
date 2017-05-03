@@ -1,0 +1,13 @@
+<h2>Departamentos CIC</h2>
+	<table class="table">
+		<tr>
+		<th>Nombre</th>
+		<th><%=link_to new_department_path do%><img src="/images/icons/add.png"/><%end%></th>
+		
+		<%@departamentos.each do |d|%>
+		</tr>
+			<td><%=d.nombre%></td>
+			<td><%=link_to 'editar',edit_department_path(d.id)%></td>
+		</tr>
+		<%end%>
+	</table>

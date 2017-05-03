@@ -1,0 +1,32 @@
+<div class="row">
+<div class="col-md-12">
+	<h3>Orden: <%=@orden.id%></h3>
+	<%= link_to edit_order_path(@orden.id) do %>
+		<img src="/images/icons/edit.png"/>
+	<%end%>
+	<%= link_to destroy_order_path(@orden.id), class: "link_eliminar" do %>
+		<img src="/images/icons/destroy.png"/>
+	<%end%>
+	<hr />
+</div>
+<div class="col-md-6">
+	<p><label-azul>Fecha:</label-azul> <%=@orden.fecha%></p>
+	<p><label-azul>Oficina:</label-azul> <%=@nombre_oficina%></p>
+	<p><label-azul>Finalizado:</label-azul> <%=@orden.finalizado%>
+</div>
+
+<div class="col-md-6">
+<center>
+	<div class="panel panel-default">
+      <div class="panel-heading"><strong>Memorando:</strong></div>
+      <div class="panel-body">
+      <p>
+		<%= link_to @orden.file.url, target: '_blank' do%>
+			<%= image_tag @orden.file.url(:medium) %>
+		<%end%>
+	  </p>
+	  </div>
+	</div>
+</center>	
+</div>
+</div>

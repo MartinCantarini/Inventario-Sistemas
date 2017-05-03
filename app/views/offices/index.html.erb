@@ -1,0 +1,20 @@
+<h2>Listado de Oficinas en CIC</h2>
+<table class="table">
+<tr>
+	<th>ID de oficina</th>
+	<th>Departamento</th>
+	<th>Dirección</th>
+	<th>Encargado</th>
+	<th><%=link_to new_office_path do%><img src="/images/icons/add.png"/><%end%></th>
+</tr>
+
+<%@oficinas.each do |o|%>
+	<tr>
+	<td><%=link_to o.id,office_path(o.id)%></td>
+	<td><%=Direction.getNombreDireccion(o.direction_id)%></td>
+	<td><%=Department.getNombreDepartamento(o.department_id)%></td>
+	<td><%=o.nombre_encargado%></td>
+	<td><%=link_to 'editar',edit_office_path(o.id)%></td>
+<%end%>
+
+</table>

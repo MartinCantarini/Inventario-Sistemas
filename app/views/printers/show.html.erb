@@ -1,0 +1,44 @@
+<div class="row">
+<div class="col-md-12">
+<h3>Impresora: <%=@impresora.codigo%></h3>
+<%= link_to edit_printer_path(@impresora.id) do %>
+	<img src="/images/icons/edit.png"/>
+<%end%>
+<%= link_to destroy_printer_path(@impresora.id), class: "link_eliminar" do %>
+	<img src="/images/icons/destroy.png"/>
+<%end%>
+<hr />
+</div>
+<div class="col-md-6">
+<p><label-azul>Marca:</label-azul> <%=Brand.getMarca(@impresora.brand_id)%></p>
+<p><label-azul>Modelo:</label-azul> <%=@impresora.modelo%></p>
+<p><label-azul>Nro de Inventario:</label-azul> <%=@impresora.numero_inventario%>
+<p><label-azul>Red disponible:</label-azul> <%=@impresora.red_disponible%></p>
+<p><label-azul>Se encuentra en Oficina: </label-azul><%=@departamento%></p>
+<p><label-azul>Detalles:</label-azul> <%=@impresora.detalles%></p>
+</div>
+<div class="col-md-4">
+<div class="panel panel-default">
+      <div class="panel-heading"><strong>Utilizando Cartucho</strong></div>
+      <div class="panel-body">
+      <%if @cartucho_ids.present?%>
+      <ul>
+ 	<%@cartucho_ids.each  do |c|%>
+      <li><%=link_to 'car'+c.to_s, cartridge_path(c)%></li>
+      <%end%>
+      </ul>
+	<%else%>
+            <div class="alert alert-warning">
+                  Por el momento esta impresora no está utilizando cartucho/tóner.
+            </div>
+      <%end%>
+      </div>
+</div>
+<div class="panel panel-primary">
+      <div class="panel-heading"><strong>Código Qr</strong></div>
+      <div class="panel-body"><%= image_tag "impresoras/imp#{@impresora.id}.png" %><%=link_to( "Descargar","/images/impresoras/imp#{@impresora.id}.png", download: 'qr_imp') %>
+	  </div>
+</div>
+</div>
+<div class="col-md-2"></div>
+</div>

@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-md-12">
+		<h3>ID Compra: <%=@compra.id%></h3>
+		<%= link_to edit_purchase_path(@compra.id) do %>
+			<img src="/images/icons/edit.png"/>
+		<%end%>
+		<%= link_to destroy_purchase_path(@compra.id), class: "link_eliminar" do %>
+			<img src="/images/icons/destroy.png"/>
+		<%end%>
+		<hr />
+	</div>
+	<div class="col-md-6", id="info_compra">
+		<%= render 'purchase_info' %>
+	</div>
+	<div class="col-md-6">
+	<div class="panel panel-default">
+      <div class="panel-heading"><strong>Factura:</strong></div>
+      <div class="panel-body">
+	    <p>
+		<%= link_to @compra.factura.url, target: '_blank' do%>
+		<%= image_tag @compra.factura.url(:medium) %>
+		<%end%>
+		</p>
+	  </div>
+	</div>	
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-5">
+		<br><br>
+		<h4>Nuevo Item</h4>
+		<div id="item-form">
+			<%= render 'items/form' %>
+		</div>
+	</div>
+	<div class="col-md-7" , id="items_compra">
+		<%= render 'items/items_list' %>
+	</div>
+</div>

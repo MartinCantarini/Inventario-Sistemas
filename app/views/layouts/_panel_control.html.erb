@@ -1,0 +1,26 @@
+ <ul id="sidebar" class="nav nav-pills nav-stacked">
+    <p id="spam-blanco">CIC - Departamento de Sistemas</p>
+    <p id="spam-blanco">
+    <%t = Time.now%>
+    <%=t.strftime("%d/%m/%Y")%>
+    </p>
+    <hr style="color:#FFF;"/>
+    <h2 id="titulo-menu"> <img src="/images/icons/configuracion.png"/> Menu</h2>
+    <h4 id="subtitulo-menu">Impresoras</h4>
+    <li><%=link_to "Listado de Impresoras", printers_path%></li>
+    <li><%=link_to "Listado de Funciones de Impresoras", functions_path%></li> 
+    <li><%=link_to "Marca de Cartuchos e Impresoras", brands_path%></li>
+    <h4 id="subtitulo-menu">Cartuchos/Tóners</h4>
+    <li><%=link_to "Listado de Cartuchos por Modelo", models_path%></li>
+    <li><%=link_to "Listado de Cartuchos por Unidad", cartridges_path%></li>
+    <h4 id="subtitulo-menu">Compras y Pedidos</h4>
+    <li><%=link_to "Listado de Compras", purchases_path%>
+    <li><%=link_to "Listado de Pedidos de Toner", orders_path%>
+    <h4 id="subtitulo-menu">Personal</h4>
+    <li><%=link_to "Oficinas CIC", offices_path%></li>
+    <li><%=link_to "Direcciones CIC", directions_path%></li>
+    <li><%=link_to "Departamentos CIC", departments_path%></li>
+    <hr style="color:#FFF;"/>
+    <p><version>versión 1.0.0</version></p>
+</ul>
+  

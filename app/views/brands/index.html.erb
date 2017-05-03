@@ -1,0 +1,23 @@
+<h2>Marca de Cartuchos</h2>
+<table class="table">
+		<tr>
+			<th>Marca</th>
+			<th>
+			<%=link_to new_brand_path do%>
+				<img src="/images/icons/add.png"/>
+			<% end %>
+			</th>
+		</tr>
+		<%@marcas.each do |m|%>
+			<tr>
+			<td>
+				<%=m.nombre%>	
+			</td>
+			<td>
+			<%= link_to edit_brand_path(m.id) do %>
+				<img src="/images/icons/edit.png"/>
+			<%end%>
+			</td>
+			</tr>
+		<%end%>
+	</table>

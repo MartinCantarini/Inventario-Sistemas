@@ -1,0 +1,14 @@
+<h3>Nueva Función para una Impresora</h3>
+
+<%= form_for @funcion do |f| %>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= f.label :funcion %><br>
+    <%= f.text_field :funcion %>
+  </p>
+  <p>
+    <%= f.submit 'Agregar Función'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+	<%=render 'function_validate.js'%>
+</script>

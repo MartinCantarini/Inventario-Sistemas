@@ -1,0 +1,12 @@
+<%= form_for @departamento do |d| %>
+  <p>
+    <spam id="campo-obligatorio">* </spam><%= d.label :nombre %><br>
+    <%= d.text_field :nombre %>
+  </p>
+  <p>
+    <%= d.submit 'Guardar'%>
+  </p>
+<% end %>
+<script type="text/javascript">
+	<%=render 'department_validate.js'%>
+</script>

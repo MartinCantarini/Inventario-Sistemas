@@ -8,7 +8,7 @@
     <%= c.collection_select(:model_id, Model.all, :id, :nombre,{:prompt => 'Seleccionar'}) %>
   </p>
   <p>
-    <%= c.label 'Se obtuvo en la Compra' %><br>
+    <spam id="campo-obligatorio">* </spam><%= c.label 'Se obtuvo en la Compra' %><br>
     <%= c.collection_select(:purchase_id, Purchase.all, :id, :compra_con_fecha,{:prompt => 'Seleccionar'}) %>
   </p>
   </p>
@@ -16,17 +16,13 @@
     <spam id="campo-obligatorio">* </spam><%= c.label :original %>
     <%= c.check_box :original %>
   </p>
-  <p>
+  <!--<p>
     <spam id="campo-obligatorio">* </spam><%= c.label 'Fecha de Entrada' %><br>
     <%= c.date_field :fecha_entrada %>
-  </p>
+  </p>-->
   <p>
     <spam id="campo-obligatorio">* </spam><%= c.label :estado %><br>
-    <%= c.select(:estado, [['Nuevo', 'nuevo'], ['En uso', 'usando'], ['Libre', 'libre'], ['Recargando', 'recargando'], ['Baja', 'baja']],{:prompt => 'Seleccionar'}) %>
-  </p>
-  <p>
-    <spam id="campo-obligatorio">* </spam><%= c.label 'Fecha de Estado' %><br>
-    <%= c.date_field :fecha_estado %>
+    <%= c.select(:estado, [['Nuevo', 'nuevo'], ['En uso', 'en uso'], ['Libre', 'libre'], ['Recargando', 'recargando'], ['Baja', 'baja']],{:prompt => 'Seleccionar'}) %>
   </p>
   <p>
     <spam id="campo-obligatorio">* </spam><%= c.label 'Color' %><br>

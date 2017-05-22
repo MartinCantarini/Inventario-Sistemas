@@ -2,9 +2,9 @@ class Cartridge < ApplicationRecord
 	belongs_to :brand
 	belongs_to :model
 	belongs_to :printer, optional: true
-	belongs_to :purchase, optional:true
+	belongs_to :purchase
 	has_many :recharges
-	validates :model_id,:brand_id,:fecha_entrada,:estado,:fecha_estado,:color, presence: true
+	validates :model_id,:brand_id,:purchase_id,:estado,:fecha_estado,:color, presence: true
 	validates :original, inclusion: { in: [ true, false ] }
 
 	#USADO EN EL SHOW DE PRINTER
@@ -35,7 +35,7 @@ class Cartridge < ApplicationRecord
 		return Cartridge.where({model_id: id , estado: 'libre'}).size
 	end
 	def self.cantidad_usando(id)
-		return Cartridge.where({model_id: id , estado: 'usando'}).size
+		return Cartridge.where({model_id: id , estado: 'en uso'}).size
 	end	
 	def self.cantidad_recargando(id)
 		return Cartridge.where({model_id: id , estado: 'recargando'}).size
@@ -52,7 +52,7 @@ class Cartridge < ApplicationRecord
 	def self.cantidad_impresoras_usan_cartucho(id)
 		cant=0
 		Cartridge.all.each do |c|
-			if(c.model_id==id && c.printer_id!=0) 
+			if(c.model_id==id && !c.printer_id.blank? && c.printer_id!=1) 
 				cant=cant+1
 		    end
 		end	
@@ -69,7 +69,7 @@ class Cartridge < ApplicationRecord
 		where("model_id = ? AND estado = ? AND fecha_estado BETWEEN ? AND ?",id,estado,fecha_desde,fecha_hasta).size
 	end
 	def self.cantidad_usando_fecha(id,fecha_desde,fecha_hasta)
-		estado='usandos'
+		estado='en uso'
 		where("model_id = ? AND estado = ? AND fecha_estado BETWEEN ? AND ?",id,estado,fecha_desde,fecha_hasta).size
 	end
 	def self.cantidad_recargando_fecha(id,fecha_desde,fecha_hasta)
@@ -112,8 +112,13 @@ class Cartridge < ApplicationRecord
 	end
 	def getOficina
 		id_impresora=self.printer_id
-		impresora=Printer.find(id_impresora)
-		return Office.find(impresora.office_id).nombre_departamento
+		if id_impresora!=nil 
+			impresora=Printer.find(id_impresora)
+			if impresora.office_id!=nil
+				return Office.find(impresora.office_id).nombre_departamento
+			end
+		end
+		return 'Sin asignar'
 	end	
 	#END----------------------------
 end

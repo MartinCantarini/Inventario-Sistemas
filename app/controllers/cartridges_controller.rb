@@ -4,7 +4,7 @@ class CartridgesController < ApplicationController
     @cartucho=Cartridge.find(params[:id])
     @modelo_cartucho=Model.find(@cartucho.model_id).nombre
     @recargas_cartucho=Recharge.where(:cartridge_id=>params[:id])
-    @impresora_del_cartucho=Printer.find(@cartucho.printer_id)
+    @impresora_del_cartucho=Printer.find(@cartucho.printer_id)      
   end
 
   def index
@@ -31,10 +31,12 @@ class CartridgesController < ApplicationController
 
   def create  
     @cartucho=Cartridge.new(cartridge_params_new)
+    @cartucho.fecha_estado=Date.today
     if(@cartucho.save)
+      id_compra_cartucho=@cartucho.purchase_id
+      @cartucho.fecha_entrada=Purchase.find(id_compra_cartucho).fecha
       @cartucho.codigo="car"+@cartucho.id.to_s
       if(@cartucho.printer_id==1)
-        @cartucho.printer_id=nil
         @cartucho.estado='libre'
       else
         @cartucho.estado='en uso'  
@@ -43,9 +45,23 @@ class CartridgesController < ApplicationController
       id_cartucho=@cartucho.id
       #Generar código QR
         url="http://geri.sistemas.cic.gba.gob.ar/cartridges/#{id_cartucho}"    
-        @qr = RQRCode::QRCode.new( url, :size => 5, :level => :h )
+        @qr = RQRCode::QRCode.new( url, :size => 6, :level => :h )
         @png = @qr.to_img                                             # returns an instance of ChunkyPNG
         @png.resize(150, 150).save("public/images/cartuchos/car#{id_cartucho}.png")
+        img = RMagick::Image.read("public/images/cartuchos/car#{id_cartucho}.png").first
+        #titulo_img=Magick::Image.new(150, 20)
+        #qr=Magick::Image.new(150, 170)
+        #txt = Magick::Draw.new
+        #titulo_img.annotate(txt, 0,0,0,0, @cartucho.codigo){
+        #  txt.gravity = Magick::SouthGravity
+         # txt.pointsize = 20
+          #txt.font_weight = Magick::BoldWeight
+          #txt.fill = '#000000'
+        #}
+        #qr.composite!(img, Magick::NorthWestGravity, 0, 0, Magick::OverCompositeOp)
+        #qr.composite!(titulo_img, Magick::NorthWestGravity, 0, 150, Magick::OverCompositeOp)
+        #qr.format = 'jpeg'
+        #qr.write("public/images/cartuchos/car#{id_cartucho}.png")
       #end
 
       flash[:notice] = "La operación se realizó con éxito!"  
@@ -62,15 +78,18 @@ class CartridgesController < ApplicationController
 
   def update
     @cartucho=Cartridge.find(params[:id])
+    id_impresora=@cartucho.printer_id
+    id_compra_cartucho=@cartucho.purchase_id
+    @cartucho.fecha_entrada=Purchase.find(id_compra_cartucho).fecha
     if(@cartucho.update(cartridge_params_edit))
       if(@cartucho.printer_id==1)
-        @cartucho.printer_id=nil
         if(@cartucho.estado!='cargando' and @cartucho.estado!='baja')
           @cartucho.estado='libre'
         end  
       else
         @cartucho.estado='en uso'  
       end
+      @cartucho.id_ultima_impresora=id_impresora
       @cartucho.save  
       flash[:notice] = "La operación se realizó con éxito!" 
       redirect_to cartridge_path(@cartucho.id)
@@ -101,6 +120,6 @@ class CartridgesController < ApplicationController
      params.require(:cartridge).permit(:codigo,:estado, :original, :fecha_entrada, :purchase_id,:fecha_estado, :color, :brand_id, :model_id, :printer_id)
   end
   def cartridge_params_edit
-     params.require(:cartridge).permit(:estado, :original, :fecha_entrada, :purchase_id, :fecha_estado, :color, :brand_id, :model_id,:printer_id)
+     params.require(:cartridge).permit(:estado, :original, :fecha_entrada, :purchase_id, :fecha_estado, :color, :brand_id, :model_id,:printer_id,:id_ultima_impresora)
   end
 end

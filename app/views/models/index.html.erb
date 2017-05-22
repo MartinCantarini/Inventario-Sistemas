@@ -41,28 +41,38 @@
 				<%@modelos.each do |m|%>
 					<tr>
 					<td>
-					<%=link_to m.nombre, model_path(m.id)%>
+						<%=link_to m.nombre, model_path(m.id)%>
 					</td>
-					<td><%=Cartridge.cantidad_total_id(m.id)%></td>
 					<td>
-					<%if Cartridge.cantidad_libres(m.id) > 3%>
-						<%=Cartridge.cantidad_libres(m.id)%>
-					<%else%>
-						<spam id="spam-rojo"><%=Cartridge.cantidad_libres(m.id)%></spam>
-					<%end%>	
+						<%=Cartridge.cantidad_total_id(m.id)%>
 					</td>
-					<td><%=Cartridge.cantidad_usando(m.id)%></td>
-					<td><%=Cartridge.cantidad_recargando(m.id)%></td>
-					<td><%=Cartridge.cantidad_nuevos(m.id)%></td>
-					<td><%=Cartridge.cantidad_originales(m.id)%> / <%=Cartridge.cantidad_alternativos(m.id)%></td>
-					<td><%=Cartridge.cantidad_impresoras_usan_cartucho(m.id)%></td>
 					<td>
-					<%= link_to edit_model_path(m.id) do %>
-						<img src="/images/icons/edit.png"/>
-					<%end%>
+						<%if Cartridge.cantidad_libres(m.id) > 3%>
+							<%=Cartridge.cantidad_libres(m.id)%>
+						<%else%>
+							<spam id="spam-rojo">
+								<%=Cartridge.cantidad_libres(m.id)%>						
+							</spam>
+						<%end%>	
+					</td>
+					<td>
+						<%=Cartridge.cantidad_usando(m.id)%>		
+					</td>
+					<td>
+						<%=Cartridge.cantidad_recargando(m.id)%>
+					</td>
+					<td>
+						<%=Cartridge.cantidad_nuevos(m.id)%></td>
+					<td>
+						<%=Cartridge.cantidad_originales(m.id)%> / <%=Cartridge.cantidad_alternativos(m.id)%></td>
+					<td>
+						<%=Cartridge.cantidad_impresoras_usan_cartucho(m.id)%></td>
+					<td>
+						<%= link_to edit_model_path(m.id) do %>
+							<img src="/images/icons/edit.png"/>
+						<%end%>
 					</td>
 					</tr>
-				
 				<%end%>
 			<%else%>
 				<%@modelos.each do |m|%>

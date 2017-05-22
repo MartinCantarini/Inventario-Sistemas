@@ -16,13 +16,15 @@
 <p><label-azul>Fechas de Entrada:</label-azul> <%=@cartucho.fecha_entrada%></p>
 <p><label-azul>Estado:</label-azul> <%=@cartucho.estado%></p>
 <p><label-azul>Fecha de Estado:</label-azul><%=@cartucho.fecha_estado%></p>
-<p><label-azul>Se obtuvo en la Compra: </label-azul><%=link_to @cartucho.purchase_id, purchase_path(@cartucho.purchase_id)%></p>
+<p><label-azul>Se obtuvo en la Compra: </label-azul>
+	<%=link_to @cartucho.purchase_id, purchase_path(@cartucho.purchase_id)%></p>
+<p><label-azul>Última impresora que lo utilizó: </label-azul><%= link_to "imp"+@cartucho.id_ultima_impresora.to_s, printer_path(@cartucho.id_ultima_impresora) %></p>
 </div>
 <div class="col-md-4">
 <div class="panel panel-default">
       <div class="panel-heading"><strong>Impresora</strong></div>
       <div class="panel-body">
-      <%if @impresora_del_cartucho.present?%>
+      <%if @impresora_del_cartucho!=nil%>
       	<%= link_to @impresora_del_cartucho.codigo, printer_path(@impresora_del_cartucho.id) %>
 	  <%else%>
 	  	<div class="alert alert-warning">

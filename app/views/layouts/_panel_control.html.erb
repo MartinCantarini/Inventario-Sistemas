@@ -1,9 +1,16 @@
  <ul id="sidebar" class="nav nav-pills nav-stacked">
+    <h3 style="color:#9aca3c;">GeRI</h3>
     <p id="spam-blanco">CIC - Departamento de Sistemas</p>
     <p id="spam-blanco">
     <%t = Time.now%>
     <%=t.strftime("%d/%m/%Y")%>
     </p>
+    <hr style="color:#FFF;"/>
+    <li>
+    <%=link_to :root , class:"btn btn-default" do %>
+        Inicio
+    <%end%>
+    </li>
     <hr style="color:#FFF;"/>
     <h2 id="titulo-menu"> <img src="/images/icons/configuracion.png"/> Menu</h2>
     <h4 id="subtitulo-menu">Impresoras</h4>

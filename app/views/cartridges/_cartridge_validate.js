@@ -13,18 +13,10 @@ $("#new_cartridge").validate({
   "cartridge[model_id]":{
     required: true
   },
-  "cartridge[original]":{
-    required: true
-  }
-  ,
-  "cartridge[fecha_entrada]":{
+  "cartridge[purchase_id]":{
     required: true
   },
   "cartridge[estado]":{
-    required: true
-  },
-
-  "cartridge[fecha_estado]":{
     required: true
   },
   "cartridge[color]":{
@@ -39,19 +31,12 @@ $("#new_cartridge").validate({
     "cartridge[model_id]":{
       required: " El campo 'MODELO' es obligatorio."
     },
-    "cartridge[original]":{
-      required: " El campo 'ORIGINAL' es obligatorio."
-    },
-    "cartridge[fecha_entrada]":{
-      required: " El campo 'FECHA DE ENTRADA' es obligatorio."
+    "cartridge[purchase_id]":{
+      required: " El campo 'SE OBTUVO EN LA COMPRA' es obligatorio."
     },
     "cartridge[estado]":{
       required: " El campo 'ESTADO' es obligatorio."
     },
-    "cartridge[fecha_estado]":{
-      required: " El campo 'FECHA DE ESTADO' es obligatorio."
-    },
-
     "cartridge[color]":{
       required: " El campo 'COLOR' es obligatorio."
     }
@@ -72,18 +57,10 @@ $(".edit_cartridge").validate({
   "cartridge[model_id]":{
     required: true
   },
-  "cartridge[original]":{
-    required: true
-  }
-  ,
-  "cartridge[fecha_entrada]":{
+  "cartridge[purchase_id]":{
     required: true
   },
   "cartridge[estado]":{
-    required: true
-  },
-
-  "cartridge[fecha_estado]":{
     required: true
   },
   "cartridge[color]":{
@@ -98,14 +75,8 @@ $(".edit_cartridge").validate({
     "cartridge[model_id]":{
       required: " El campo 'MODELO' es obligatorio."
     },
-    "cartridge[original]":{
-      required: " El campo 'ORIGINAL' es obligatorio."
-    },
-    "cartridge[fecha_entrada]":{
-      required: " El campo 'FECHA DE ENTRADA' es obligatorio."
-    },
-    "cartridge[estado]":{
-      required: " El campo 'ESTADO' es obligatorio."
+    "cartridge[purchase_id]":{
+      required: " El campo 'SE OBTUVO EN LA COMPRA' es obligatorio."
     },
     "cartridge[fecha_estado]":{
       required: " El campo 'FECHA DE ESTADO' es obligatorio."

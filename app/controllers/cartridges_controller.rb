@@ -1,10 +1,10 @@
 class CartridgesController < ApplicationController
-  
+
   def show
     @cartucho=Cartridge.find(params[:id])
     @modelo_cartucho=Model.find(@cartucho.model_id).nombre
     @recargas_cartucho=Recharge.where(:cartridge_id=>params[:id])
-    @impresora_del_cartucho=Printer.find(@cartucho.printer_id)      
+    @impresora_del_cartucho=Printer.find(@cartucho.printer_id)
   end
 
   def index
@@ -19,7 +19,7 @@ class CartridgesController < ApplicationController
       fecha_hasta=params[:fecha_hasta]
       @cantidad_comprados = Cartridge.cantidad_fecha_entrada(fecha_desde,fecha_hasta)
       @cantidad_libres = Cartridge.cantidad_fecha_estado_libre(fecha_desde,fecha_hasta)
-      @cantidad_recargando = Cartridge.cantidad_fecha_estado_recargando(fecha_desde,fecha_hasta) 
+      @cantidad_recargando = Cartridge.cantidad_fecha_estado_recargando(fecha_desde,fecha_hasta)
     else
       @cartuchos = Cartridge.all.order('created_at DESC')
     end
@@ -29,7 +29,7 @@ class CartridgesController < ApplicationController
     @cartucho=Cartridge.new
   end
 
-  def create  
+  def create
     @cartucho=Cartridge.new(cartridge_params_new)
     @cartucho.fecha_estado=Date.today
     if(@cartucho.save)
@@ -39,12 +39,12 @@ class CartridgesController < ApplicationController
       if(@cartucho.printer_id==1)
         @cartucho.estado='libre'
       else
-        @cartucho.estado='en uso'  
-      end  
+        @cartucho.estado='en uso'
+      end
       @cartucho.save
       id_cartucho=@cartucho.id
       #Generar código QR
-        url="http://geri.sistemas.cic.gba.gob.ar/cartridges/#{id_cartucho}"    
+        url="http://geri.sistemas.cic.gba.gob.ar/cartridges/#{id_cartucho}"
         @qr = RQRCode::QRCode.new( url, :size => 6, :level => :h )
         @png = @qr.to_img                                             # returns an instance of ChunkyPNG
         @png.resize(150, 150).save("public/images/cartuchos/car#{id_cartucho}.png")
@@ -64,12 +64,12 @@ class CartridgesController < ApplicationController
         #qr.write("public/images/cartuchos/car#{id_cartucho}.png")
       #end
 
-      flash[:notice] = "La operación se realizó con éxito!"  
+      flash[:notice] = "La operación se realizó con éxito!"
       redirect_to cartridges_path
     else
       flash[:alert] = "No se pudo completar la operación, por favor intentelo nuevamente"
       redirect_to cartridges_path
-    end  
+    end
   end
 
   def edit
@@ -85,18 +85,19 @@ class CartridgesController < ApplicationController
       if(@cartucho.printer_id==1)
         if(@cartucho.estado!='cargando' and @cartucho.estado!='baja')
           @cartucho.estado='libre'
-        end  
+        end
       else
-        @cartucho.estado='en uso'  
+        @cartucho.estado='en uso'
       end
+      @cartucho.fecha_entrada=Purchase.find(id_compra_cartucho).fecha
       @cartucho.id_ultima_impresora=id_impresora
-      @cartucho.save  
-      flash[:notice] = "La operación se realizó con éxito!" 
+      @cartucho.save
+      flash[:notice] = "La operación se realizó con éxito!"
       redirect_to cartridge_path(@cartucho.id)
     else
       flash[:alert] = "No se pudo completar la operación, por favor intentelo nuevamente"
       redirect_to cartridge_path(@cartucho.id)
-    end  
+    end
   end
 
   def destroy
@@ -108,7 +109,7 @@ class CartridgesController < ApplicationController
     else
       if(@cartucho.printer_id.present?)
         flash[:alert] = "No se pudo completar la operación, ya que tiene una impresora asociada a este cartcho"
-      else  
+      else
         flash[:alert] = "No se pudo completar la operación, por favor intentelo nuevamente"
       end
       redirect_to cartridges_path

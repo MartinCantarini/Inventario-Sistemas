@@ -1,29 +1,29 @@
 class ModelsController < ApplicationController
-  
+
   def show
     @modelo=Model.find(params[:id])
     @departamentos_que_usan_modelos_de_toner=Office.getDepartamentoUsandoToner(@modelo.id)
   end
 
   def index
-    @modelos=Model.all.order('created_at DESC')
-    if params[:search].present? and !params[:fecha_desde].present? and !params[:fecha_hasta].present?
+    @modelos=Model.all.order('nombre DESC')
+    if params[:search].present? #and !params[:fecha_desde].present? and !params[:fecha_hasta].present?
       #BUSCO POR MODELO
       @modelo_id=params[:search]
       @modelos = Model.busqueda_modelo(params[:search]).order("created_at DESC")
-    elsif params[:search].present? and params[:fecha_desde].present? and params[:fecha_hasta].present?
-      #BUSCO POR MODELO y FECHA
-      @modelo_id=params[:search]
-      @modelos = Model.busqueda_modelo(params[:search]).order("created_at DESC")
-      @fecha_desde=params[:fecha_desde]
-      @fecha_hasta=params[:fecha_hasta]
-    elsif !params[:search].present? and params[:fecha_desde].present? and params[:fecha_hasta].present?
-      #BUSCO POR FECHA
-      @modelos=Model.all.order('created_at DESC')
-      @fecha_desde=params[:fecha_desde]
-      @fecha_hasta=params[:fecha_hasta]
-    else  
-      @modelos = Model.all.order('created_at DESC')
+    # elsif params[:search].present? and params[:fecha_desde].present? and params[:fecha_hasta].present?
+    #   #BUSCO POR MODELO y FECHA
+    #   @modelo_id=params[:search]
+    #   @modelos = Model.busqueda_modelo(params[:search]).order("created_at DESC")
+    #   @fecha_desde=params[:fecha_desde]
+    #   @fecha_hasta=params[:fecha_hasta]
+    # elsif !params[:search].present? and params[:fecha_desde].present? and params[:fecha_hasta].present?
+    #   #BUSCO POR FECHA
+    #   @modelos=Model.all.order('created_at DESC')
+    #   @fecha_desde=params[:fecha_desde]
+    #   @fecha_hasta=params[:fecha_hasta]
+    else
+      @modelos = Model.all.order('nombre DESC')
     end
   end
 
@@ -39,7 +39,7 @@ class ModelsController < ApplicationController
     else
         flash[:alert] = "No se pudo completar la operación, por favor intentelo nuevamente"
         redirect_to new_model_path
-    end    
+    end
   end
 
   def edit
@@ -64,12 +64,12 @@ class ModelsController < ApplicationController
       flash[:notice] = "La operación se realizó con éxito!"
     else
       flash[:alert] = "No se pudo completar la operación, por favor intentelo nuevamente"
-    end  
+    end
     redirect_to models_path
   end
 
   private
   def model_params
     params.require(:model).permit(:nombre)
-  end 
+  end
 end

@@ -2,6 +2,7 @@
 		<table class="table">
 			<tr>
 				<th>Modelo</th>
+				<th>Original</th>
 				<th>Cantidad pedidas</th>
 				<th>Cantidad servidas</th>
 				<th>
@@ -10,6 +11,7 @@
 			<%@items.all.each do |item|%>
 			<tr>
 				<td><%=Model.getNombre(item.model_id)%></td>
+				<td><%=item.original ? "Si" : "No"%></td>
 				<td><%=item.cantidad_pedidas%></td>
 				<td>
 					<%=link_to decrease_item_path(item.id) , remote: true do%>

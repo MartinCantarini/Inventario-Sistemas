@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
       f.js
     end
   end
-  
+
   def increase
     @item=Item.find(params[:id])
     @item.cantidad_servidas=@item.cantidad_servidas+1
@@ -68,10 +68,10 @@ class ItemsController < ApplicationController
     @items=Item.all
     respond_to do |format|
       format.html { redirect_to purchase_url(@item.purchase_id) }
-      format.js   
+      format.js
     end
   end
-  
+
   def decrease
     @item=Item.find(params[:id])
     if(@item.cantidad_servidas > 0)
@@ -81,12 +81,12 @@ class ItemsController < ApplicationController
     @items=Item.all
     respond_to do |format|
       format.html { redirect_to purchase_url(@item.purchase_id) }
-      format.js   
+      format.js
     end
   end
 
   private
   def item_params
-    params.require(:item).permit(:purchase_id,:model_id,:cantidad_pedidas,:cantidad_servidas)
+    params.require(:item).permit(:purchase_id,:model_id,:cantidad_pedidas,:cantidad_servidas,:original)
   end
 end

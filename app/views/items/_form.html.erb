@@ -1,6 +1,12 @@
 <%= form_for @item, remote: true do |i| %>
+  <%= i.label "Cantidad Pedidas" %>
   <%= i.number_field :cantidad_pedidas %>
+  <%= i.label "Id Compra"%>
   <%= i.collection_select(:purchase_id, Purchase.all, :id, :id, :selected=>@compra.id) %>
+  <br />
+  <%= i.label "Modelo de Toner" %>
   <%= i.collection_select(:model_id, Model.all, :id, :nombre) %>
+  <%= i.label "Original" %>
+  <%= i.check_box :original %>
   <%= i.submit 'Agregar item'%>
 <% end %>

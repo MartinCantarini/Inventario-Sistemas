@@ -6,18 +6,17 @@
   <div class="row">
   <div class="col-md-4">
 <%= form_tag(models_path, :method => "get", id: "search-form") do %>
-	<label-azul>Modelo:</label-azul><%= select_tag :search,
-    		options_from_collection_for_select(Model.all, :nombre, :nombre,params[:search]),:include_blank => true %>
+	<%= select_tag :search, options_from_collection_for_select(Model.all, :nombre, :nombre,params[:search]),prompt: "Modelo de Tóner" %>
 	<br><br>
-	<label-azul>Fecha Desde:</label-azul> <%= date_field_tag :fecha_desde, params[:fecha_desde], placeholder: "dd/mm/aaaa", class:"form-control" %>
-	<label-azul>Fecha Hasta:</label-azul> <%= date_field_tag :fecha_hasta, params[:fecha_hasta], placeholder: "dd/mm/aaaa", class:"form-control" %><br>
+	<!-- <label-azul>Fecha Desde:</label-azul> <%= date_field_tag :fecha_desde, params[:fecha_desde], placeholder: "dd/mm/aaaa", class:"form-control" %>
+	<label-azul>Fecha Hasta:</label-azul> <%= date_field_tag :fecha_hasta, params[:fecha_hasta], placeholder: "dd/mm/aaaa", class:"form-control" %><br> -->
 	<%= submit_tag "Buscar" , class:"btn btn-primary btn-lg"%>&nbsp;&nbsp;&nbsp;<%=link_to 'Listar Todos' ,models_path, class:"btn btn-default btn-sm"%><br><br>
 <% end %>
 </div>
 <div class="col-md-8">
-<center>
+<!-- <center>
 <img src="/images/cartridge.jpg" class="img-circle" height="300" width="300" />
-</center>
+</center> -->
 </div>
 <div class="col-md-12">
 <table class="table">
@@ -51,12 +50,12 @@
 							<%=Cartridge.cantidad_libres(m.id)%>
 						<%else%>
 							<spam id="spam-rojo">
-								<%=Cartridge.cantidad_libres(m.id)%>						
+								<%=Cartridge.cantidad_libres(m.id)%>
 							</spam>
-						<%end%>	
+						<%end%>
 					</td>
 					<td>
-						<%=Cartridge.cantidad_usando(m.id)%>		
+						<%=Cartridge.cantidad_usando(m.id)%>
 					</td>
 					<td>
 						<%=Cartridge.cantidad_recargando(m.id)%>
@@ -93,7 +92,7 @@
 				<%end%>
 				</td>
 				</tr>
-				<%end%>			
+				<%end%>
 			<%end%>
 		<%end%>
 </table>
@@ -101,7 +100,7 @@
 	<div class="alert alert-danger">
 		 <strong>Ops!</strong> No se encontró ningun resultado
 	</div>
-</div>				
+</div>
 <%end%>
 </div>
 </div>

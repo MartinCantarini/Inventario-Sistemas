@@ -1,5 +1,6 @@
 class CartridgesController < ApplicationController
-
+  require 'rqrcode'
+  require 'rqrcode_png'
   def show
     @cartucho=Cartridge.find(params[:id])
     @modelo_cartucho=Model.find(@cartucho.model_id).nombre
@@ -48,24 +49,22 @@ class CartridgesController < ApplicationController
         @qr = RQRCode::QRCode.new( url, :size => 6, :level => :h )
         @png = @qr.to_img                                             # returns an instance of ChunkyPNG
         @png.resize(150, 150).save("public/images/cartuchos/car#{id_cartucho}.png")
-        img = RMagick::Image.read("public/images/cartuchos/car#{id_cartucho}.png").first
-        #titulo_img=Magick::Image.new(150, 20)
-        #qr=Magick::Image.new(150, 170)
-        #txt = Magick::Draw.new
-        #titulo_img.annotate(txt, 0,0,0,0, @cartucho.codigo){
-        #  txt.gravity = Magick::SouthGravity
-         # txt.pointsize = 20
-          #txt.font_weight = Magick::BoldWeight
-          #txt.fill = '#000000'
-        #}
-        #qr.composite!(img, Magick::NorthWestGravity, 0, 0, Magick::OverCompositeOp)
-        #qr.composite!(titulo_img, Magick::NorthWestGravity, 0, 150, Magick::OverCompositeOp)
-        #qr.format = 'jpeg'
-        #qr.write("public/images/cartuchos/car#{id_cartucho}.png")
-      #end
-
+        img = Magick::Image.read("public/images/cartuchos/car#{id_cartucho}.png").first
+        titulo_img=Magick::Image.new(150, 20)
+        qr=Magick::Image.new(150, 170)
+        txt = Magick::Draw.new
+        titulo_img.annotate(txt, 0,0,0,0, @cartucho.codigo){
+         txt.gravity = Magick::SouthGravity
+         txt.pointsize = 20
+          txt.font_weight = Magick::BoldWeight
+          txt.fill = '#000000'
+        }
+        qr.composite!(img, Magick::NorthWestGravity, 0, 0, Magick::OverCompositeOp)
+        qr.composite!(titulo_img, Magick::NorthWestGravity, 0, 150, Magick::OverCompositeOp)
+        qr.format = 'jpeg'
+        qr.write("public/images/cartuchos/car#{id_cartucho}.png")
       flash[:notice] = "La operación se realizó con éxito!"
-      redirect_to cartridges_path
+      redirect_to cartridge_path(@cartucho.id)
     else
       flash[:alert] = "No se pudo completar la operación, por favor intentelo nuevamente"
       redirect_to cartridges_path
@@ -92,6 +91,26 @@ class CartridgesController < ApplicationController
       @cartucho.fecha_entrada=Purchase.find(id_compra_cartucho).fecha
       @cartucho.id_ultima_impresora=id_impresora
       @cartucho.save
+      id_cartucho=@cartucho.id
+      #Generar código QR
+        url="http://geri.sistemas.cic.gba.gob.ar/cartridges/#{id_cartucho}"
+        @qr = RQRCode::QRCode.new( url, :size => 6, :level => :h )
+        @png = @qr.to_img                                             # returns an instance of ChunkyPNG
+        @png.resize(150, 150).save("public/images/cartuchos/car#{id_cartucho}.png")
+        img = Magick::Image.read("public/images/cartuchos/car#{id_cartucho}.png").first
+        titulo_img=Magick::Image.new(150, 20)
+        qr=Magick::Image.new(150, 170)
+        txt = Magick::Draw.new
+        titulo_img.annotate(txt, 0,0,0,0, @cartucho.codigo){
+         txt.gravity = Magick::SouthGravity
+         txt.pointsize = 20
+          txt.font_weight = Magick::BoldWeight
+          txt.fill = '#000000'
+        }
+        qr.composite!(img, Magick::NorthWestGravity, 0, 0, Magick::OverCompositeOp)
+        qr.composite!(titulo_img, Magick::NorthWestGravity, 0, 150, Magick::OverCompositeOp)
+        qr.format = 'jpeg'
+        qr.write("public/images/cartuchos/car#{id_cartucho}.png")
       flash[:notice] = "La operación se realizó con éxito!"
       redirect_to cartridge_path(@cartucho.id)
     else

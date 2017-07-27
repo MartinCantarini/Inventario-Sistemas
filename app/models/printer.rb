@@ -10,32 +10,32 @@ class Printer < ApplicationRecord
 		if modelo=='000000'
 			"Ninguna"
 		else
-			"#{codigo} (#{marca} - #{modelo})"	
+			"#{codigo} (#{marca} - #{modelo})"
 		end
-	end	
+	end
 	def self.cantidad(nombre)
 		cant=0
-		Printer.all.each do |i| 
+		Printer.all.each do |i|
 			if(i.functions.where(:funcion=>nombre).size>0)
 				cant+=1
-			end	
-		end	
+			end
+		end
 		return cant
-	end	
+	end
 	#Cantidad de impresoras que usan un determinado modelo de cartucho
 	def self.cantidad_impresora_cartucho(id_modelo_cartucho)
 		cant=0
 		Printer.all.each do |p|
 			if p.cartridge.model_id==id_modelo_cartucho
 				cant=cant+1
-			end	
+			end
 		end
-		return cant	
-	end	
+		return cant
+	end
 	def self.getImpresoraDeOficina(oficina_id)
 		where('office_id = ?',oficina_id)
-	end	
+	end
 	def getOficina
-		return Office.find(self.office_id).nombre_departamento
-	end	
+		return Office.find(self.office_id).departamento_con_direccion
+	end
 end

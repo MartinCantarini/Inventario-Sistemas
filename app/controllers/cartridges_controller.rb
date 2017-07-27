@@ -6,6 +6,9 @@ class CartridgesController < ApplicationController
     @modelo_cartucho=Model.find(@cartucho.model_id).nombre
     @recargas_cartucho=Recharge.where(:cartridge_id=>params[:id])
     @impresora_del_cartucho=Printer.find(@cartucho.printer_id)
+    if @impresora_del_cartucho.id==1
+      @impresora_del_cartucho=nil
+    end
   end
 
   def index
@@ -82,7 +85,7 @@ class CartridgesController < ApplicationController
     @cartucho.fecha_entrada=Purchase.find(id_compra_cartucho).fecha
     if(@cartucho.update(cartridge_params_edit))
       if(@cartucho.printer_id==1)
-        if(@cartucho.estado!='cargando' and @cartucho.estado!='baja')
+        if(@cartucho.estado!='recargando' and @cartucho.estado!='baja')
           @cartucho.estado='libre'
         end
       else
@@ -121,8 +124,7 @@ class CartridgesController < ApplicationController
 
   def destroy
     @cartucho=Cartridge.find(params[:id])
-
-    if(!@cartucho.printer_id.present? and @cartucho.destroy)
+    if(!@cartucho.printer_id.present? or @cartucho.printer_id==1 and @cartucho.destroy)
       flash[:notice] = "La operación se realizó con éxito!"
       redirect_to cartridges_path
     else

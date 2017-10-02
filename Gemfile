@@ -73,4 +73,4 @@ gem 'paperclip'
 #JqueryUI
 gem 'jquery-ui-rails'
 
-#Agregar texto al qr
+gem 'rubocop'

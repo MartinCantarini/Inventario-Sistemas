@@ -8,16 +8,21 @@
   <div class="col-md-4">
   	<%= form_tag(cartridges_path, :method => "get", id: "search-form") do %>
     <p>
-     <label-azul>Código de Cartucho/Toner:</label-azul> <%= text_field_tag :codigo_cartucho, params[:codigo_cartucho], class:"form-control",placeholder:"car3"%><br>
-     <%= submit_tag "Buscar" , class:"btn btn-primary btn-lg"%>
-    </p> 
+     <label-azul>Código de Cartucho/Toner:</label-azul> <%= text_field_tag :codigo_cartucho, params[:codigo_cartucho], class:"form-control",placeholder:"car3"%>
+     <%= submit_tag "Buscar" , class:"btn btn-primary"%>
+    </p>
     <% end %>
-   </div>
-<div class="col-md-8">
-<center>
-<img src="/images/cartridgeb.jpg" class="img-circle" height="300" width="300" />
-</center>
-</div>
+  </div>
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-6">
+    <%= form_tag(cartridges_path, :method => "get", id: "search-form") do %>
+    <p>
+     <label-azul>Modelo de Cartucho/Toner:</label-azul> <%= select_tag :modelo_cartucho, options_from_collection_for_select(@modelos, "id", "nombre")%>
+     <%= submit_tag "Buscar" , class:"btn btn-default"%>
+    </p>
+    <% end %>
+  </div>
 <div class="col-md-12">
 	<table class="table">
 		<tr>
@@ -61,7 +66,7 @@
 	<%if !@cartuchos.present?%>
 		<div class="alert alert-danger">
 			 <strong>Ops!</strong> No se encontró ningun resultado
-		</div>			
+		</div>
 	<%end%>
 	</div>
 </div>

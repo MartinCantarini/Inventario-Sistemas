@@ -12,7 +12,8 @@ class CartridgesController < ApplicationController
   end
 
   def index
-    @cartuchos = Cartridge.all.order('created_at DESC')
+    @cartuchos = Cartridge.all.order('created_at ASC')
+    @modelos = Model.all.order('nombre DESC')
     @cantidad_comprados=Cartridge.cantidad_total
     @cantidad_libres_total=Cartridge.cantidad_libres_total
     @cantidad_recargando_total=Cartridge.cantidad_recargando_total
@@ -24,6 +25,8 @@ class CartridgesController < ApplicationController
       @cantidad_comprados = Cartridge.cantidad_fecha_entrada(fecha_desde,fecha_hasta)
       @cantidad_libres = Cartridge.cantidad_fecha_estado_libre(fecha_desde,fecha_hasta)
       @cantidad_recargando = Cartridge.cantidad_fecha_estado_recargando(fecha_desde,fecha_hasta)
+  elsif params[:modelo_cartucho].present?
+      @cartuchos = Cartridge.where(:model_id=>params[:modelo_cartucho])
     else
       @cartuchos = Cartridge.all.order('created_at DESC')
     end

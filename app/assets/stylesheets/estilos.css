@@ -1,3 +1,6 @@
+*{
+  font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+}
 th{
     background-color: #333;
     color: #FFF;
@@ -10,7 +13,7 @@ th{
 }
 #logo{
     margin-top:30px;
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
 }
 #color-peligro{
 	color:red;
@@ -21,7 +24,7 @@ th{
 }
 #subtitulo-menu{
     color:#9ACA3C;
-    margin:10px 10px 10px 10px;   
+    margin:10px 10px 10px 10px;
 }
 #campo-obligatorio{
     color:red;
@@ -33,7 +36,7 @@ label-azul{
 }
 version{
   color:#9aca3c;
-  font-size: 10px;  
+  font-size: 10px;
   text-align: right;
 }
 #spam-rojo{
